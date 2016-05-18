@@ -28,7 +28,7 @@ io.on("connection", function (socket) {
 })
 app.set('views', __dirname + '/views');
 
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 server.listen(PORT, function () {
     console.log("Server started.")
