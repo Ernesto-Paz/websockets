@@ -1,0 +1,13 @@
+doctype html
+html(lang="en")
+    head
+        title= "Sockets.Io Chat"
+    body
+        div(class = "message-log")
+        form(id = "message-form")
+            input(type = "text" name="message")
+            input(type = "submit")
+        script(src = "/js/jquery-2.2.3.min.js")
+        script(src = "https://cdn.socket.io/socket.io-1.4.5.js")
+        script(src = "/js/moment.js")
+        script(src = "/js/app.js")

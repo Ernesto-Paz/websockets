@@ -21,14 +21,17 @@ io.on("connection", function (socket) {
     socket.on("message", function (message) {
         io.emit("message", {
             time: moment().utc().valueOf("X"), //outgoing message does have timestamp
-            text: message.text
+            text: message.text,
+            name: message.name,
+            room: message.room
         });
         console.log(message); //message from client does not have timestamp;
     });
 
     io.emit("message", {
         time: moment().valueOf("X"),
-        text: "A user has connected."
+        text: "A user has connected.",
+        name: "Server"
     })
 
     socket.on("disconnect", function (socket) {
@@ -54,3 +57,15 @@ app.get("/", function (req, res) {
         }
     });
 });
+
+app.get("/chat.html", function(req, res){
+res.render("chat", {
+info:{
+    moreteststuff: "Another string to pass in."
+
+}
+
+});
+
+
+})
