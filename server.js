@@ -7,6 +7,10 @@ var io = require("socket.io").listen(server); // listens to server for requests.
 
 app.locals.pretty = true;
 
+app.set('views', __dirname + '/views');
+
+app.set('view engine', 'pug');
+
 app.use(express.static(__dirname + "/public"));
 
 io.on("connection", function (socket) {
@@ -18,6 +22,7 @@ io.on("connection", function (socket) {
             text: message.text
         });
         console.log("Server recieved: " + message.text)
+        console.log(message);
     });
 
     socket.emit("message", {
@@ -26,9 +31,6 @@ io.on("connection", function (socket) {
 
 
 })
-app.set('views', __dirname + '/views');
-
-app.set('view engine', 'pug');
 
 server.listen(PORT, function () {
     console.log("Server started.")
