@@ -12,8 +12,8 @@ console.log("Successfully connected to server.");
 socket.on("message", function(message){
     
 console.log("New message: " + message.text);
-
-$(".message-log").append("<p>" + message.text + "</p>" )
+//format UTC date from server to local time.
+$(".message-log").append("<p>" + moment(message.time).format("h:mm a")+ " " + message.text + "</p>" )
     
 })
 
@@ -28,7 +28,6 @@ event.preventDefault();
    socket.emit("message", {
 text: message.val()
 })
-$(".message-log").append("<p>" + message.val() + "</p>" )
   message.val(""); 
 
 })
