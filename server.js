@@ -17,22 +17,22 @@ app.use(express.static(__dirname + "/public"));
 clientInfo = {};
 
 io.on("connection", function (socket) {
-    
-    socket.on("joinroom", function(info){
-    console.log(info);
-    clientInfo[socket.id] = info;
-    socket.join(info.room);
-    io.to(info.room).emit("message", {
-        time: moment().valueOf("X"),
-        name: "Server",
-        room:info.room,
-        text: info.name + " has joined the room."
 
-    })
+    socket.on("joinroom", function (info) {
+        console.log(info);
+        clientInfo[socket.id] = info;
+        socket.join(info.room);
+        io.to(info.room).emit("message", {
+            time: moment().valueOf("X"),
+            name: "Server",
+            room: info.room,
+            text: info.name + " has joined the room."
+
+        })
     });
     console.log("SOCKET.IO: ", "User connected.");
 
-    socket.on("message", function (message) {   
+    socket.on("message", function (message) {
         io.to(clientInfo[socket.id].room).emit("message", {
             time: moment().utc().valueOf("X"), //outgoing message does have timestamp
             text: message.text,
@@ -49,12 +49,15 @@ io.on("connection", function (socket) {
     })*/
 
     socket.on("disconnect", function (info) {
-        io.to(clientInfo[socket.id].room).emit("message", {
-            time: moment().valueOf("X"),
-            text: clientInfo[socket.id].name + " has disconnected.",
-            name: "Server"
-        })
-
+        if (clientInfo[socket.id] != "undefined") {
+            socket.leave(clientInfo[socket.id].room);
+            io.to(clientInfo[socket.id].room).emit("message", {
+                time: moment().valueOf("X"),
+                text: clientInfo[socket.id].name + " has disconnected.",
+                name: "Server"
+            });
+        }
+        delete clientInfo[socket.id];
 
     })
 
