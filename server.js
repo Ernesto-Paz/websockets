@@ -79,8 +79,7 @@ app.get("/", function (req, res) {
 app.get("/chat.html", function (req, res) {
     res.render("chat", {
         info: {
-            roomname: req.query.roomname
-
+            room: req.query.room,
         }
 
     });
