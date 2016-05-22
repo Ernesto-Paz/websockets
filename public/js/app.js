@@ -25,21 +25,27 @@ var queryParams = getQueryParams();
 var name = queryParams.name || "Anonymous";
 var room = queryParams.room || "Public";
 
-
+//connecting to the server
 socket.on("connect", function () {
 
     console.log("Successfully connected to server.");
 
+    socket.emit("joinroom", {
+        name: name,
+        room: room
+    });
+
 });
+
+
 
 //handling recieved messages from server
 socket.on("message", function (message) {
     console.log(message);
     console.log("New message: " + message.text);
     //format UTC date from server to local time.
-    $(".message-log").append("<p><strong>" + message.name + " @ " + moment(message.time).format("h:mm a")  +"</strong></p>");
+    $(".message-log").append("<p><strong>" + message.name + " @ " + moment(message.time).format("h:mm a") + "</strong></p>");
     $(".message-log").append("<p>" + message.text + "</p>");
-
 })
 
 //jQuery form handling messages sent out by client
@@ -59,7 +65,6 @@ $messageform.on("submit", function (event) {
         })
     }
     messageinput.val("");
-
 })
 
 //logging of recieved messages

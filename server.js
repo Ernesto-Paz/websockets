@@ -14,12 +14,26 @@ app.set('view engine', 'pug');
 
 app.use(express.static(__dirname + "/public"));
 
-io.on("connection", function (socket) {
+clientInfo = {};
 
+io.on("connection", function (socket) {
+    
+    socket.on("joinroom", function(info){
+    console.log(info);
+    clientInfo[socket.id] = info;
+    socket.join(info.room);
+    io.to(info.room).emit("message", {
+        time: moment().valueOf("X"),
+        name: "Server",
+        room:info.room,
+        text: info.name + " has joined the room."
+
+    })
+    });
     console.log("SOCKET.IO: ", "User connected.");
 
-    socket.on("message", function (message) {
-        io.emit("message", {
+    socket.on("message", function (message) {   
+        io.to(clientInfo[socket.id].room).emit("message", {
             time: moment().utc().valueOf("X"), //outgoing message does have timestamp
             text: message.text,
             name: message.name,
@@ -28,16 +42,17 @@ io.on("connection", function (socket) {
         console.log(message); //message from client does not have timestamp;
     });
 
-    io.emit("message", {
+    /*io.emit("message", {
         time: moment().valueOf("X"),
         text: "A user has connected.",
         name: "Server"
-    })
+    })*/
 
-    socket.on("disconnect", function (socket) {
-        io.emit("message", {
+    socket.on("disconnect", function (info) {
+        io.to(clientInfo[socket.id].room).emit("message", {
             time: moment().valueOf("X"),
-            text: "A user has disconnected."
+            text: clientInfo[socket.id].name + " has disconnected.",
+            name: "Server"
         })
 
 
@@ -58,14 +73,14 @@ app.get("/", function (req, res) {
     });
 });
 
-app.get("/chat.html", function(req, res){
-res.render("chat", {
-info:{
-    moreteststuff: "Another string to pass in."
+app.get("/chat.html", function (req, res) {
+    res.render("chat", {
+        info: {
+            roomname: req.query.roomname
 
-}
+        }
 
-});
+    });
 
 
 })
