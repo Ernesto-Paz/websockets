@@ -2,17 +2,23 @@ doctype html
 html(lang="en")
     head
         title Sockets.Io Chat
-        link(rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel="stylesheet" type="text/css" href="/css/chat.css")
     body
-        a(href = "/") Change Name
-        
-        h1 #{info.room}
-        div(class = "message-log")
-        form(id = "message-form")
-            input(type = "text" name="message")
-            input(type = "submit")
-        script(src = "/js/jquery-2.2.3.min.js")
+        div(class = "container-fluid")
+            div(class="row message-container")
+                div(class = "col-md-8 col-md-offset-2")
+                    a(href = "/") Change Name
+                    h1 #{info.room}
+                    div(class = "message-log")
+            form(id = "message-form" class="form-horizontal")
+                div(class = "form-group")
+                    div(class="col-xs-7 col-md-offset-2")
+                        input(type = "text" class="form-control" id="messageinput" name= "message" )
+                    div(class="col-xs-1")
+                        button(type = "submit" class="btn btn-primary") Send
+            script(src = "/js/jquery-2.2.3.min.js")
         script(src = "https://cdn.socket.io/socket.io-1.4.5.js")
         script(src = "/js/moment.js")
         script(src = "/js/app.js")
-        script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")

@@ -43,9 +43,11 @@ socket.on("connect", function () {
 socket.on("message", function (message) {
     console.log(message);
     console.log("New message: " + message.text);
+    var $newmessage =$("<div class=\"list-group-item\"></div>")
     //format UTC date from server to local time.
-    $(".message-log").append("<p><strong>" + message.name + " @ " + moment(message.time).format("h:mm a") + "</strong></p>");
-    $(".message-log").append("<p>" + message.text + "</p>");
+    $newmessage.append("<p><strong>" + message.name + " @ " + moment(message.time).format("h:mm a") + "</strong></p>");
+    $newmessage.append("<p>" + message.text + "</p>");
+    $(".message-log").append($newmessage);
 })
 
 //jQuery form handling messages sent out by client
