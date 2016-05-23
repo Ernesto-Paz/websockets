@@ -2,12 +2,21 @@ doctype html
 html(lang="en")
     head
         title= "Sockets.Io Chat"
+        link(rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel="stylesheet" type="text/css" href="/css/index.css")
     body
-        div(class = "message-log")
-        form(action = "/chat.html")
-            label Display Name
-            input(type = "text" name="name")
-            label Room Name
-            input(type = "text" name = "room")
-            input(type = "submit" value = "Join Chat")
-
+        div(class="jumbotron")
+            h1(class="centeredtext") Join a Chat
+            div(class="container-fluid")
+                div(class="row")
+                    div(class="col-md-6 col-md-offset-3")
+                        div(class="well")
+                            form(action = "/chat.html")
+                                div(class = "form-group")
+                                    label(for="nicknameforminput") Display Name
+                                    input(type = "text" class="form-control" id="nicknameforminput" name= "name" )
+                                div(class = "form-group")
+                                    label(for="roomnameforminput") Room Name
+                                    input(type = "text" class="form-control"  id="roomnameforminput" name = "room")
+                                button(type = "submit" class="btn btn-primary") Join Chat
+        script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")

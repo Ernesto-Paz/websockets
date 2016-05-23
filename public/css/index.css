@@ -1,0 +1,16 @@
+html{
+height:100%;
+}
+body{
+height:100%;
+overflow:hidden;
+}
+.jumbotron{
+height:100%;
+}
+.well{
+border-width:2px;
+}
+.centeredtext{
+text-align: center;
+}
