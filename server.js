@@ -79,7 +79,7 @@ app.get("/", function (req, res) {
 app.get("/chat.html", function (req, res) {
     res.render("chat", {
         info: {
-            room: req.query.room,
+            room: req.query.room || "Public",
         }
 
     });
