@@ -2,7 +2,7 @@ var PORT = process.env.PORT || 3000;
 var express = require("express");
 var path = require('path');
 var app = express();
-var server = require("http").createServer(app); // creates server 
+var server = require("http").createServer(app); // creates express server 
 var io = require("socket.io").listen(server); // listens to server for requests.
 var moment = require("moment");
 
