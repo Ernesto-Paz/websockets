@@ -48,6 +48,9 @@ socket.on("message", function (message) {
     $newmessage.append("<p><strong>" + message.name + " @ " + moment(message.time).format("h:mm a") + "</strong></p>");
     $newmessage.append("<p>" + message.text + "</p>");
     $(".message-log").append($newmessage);
+    var currentScroll = $(".message-log").scrollTop();
+    var scrollHeight = $(".message-log").prop("scrollHeight") - $(".message-log").height();
+    $(".message-log").scrollTop(scrollHeight);
 })
 
 //jQuery form handling messages sent out by client
