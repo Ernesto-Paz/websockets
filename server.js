@@ -33,6 +33,10 @@ io.on("connection", function (socket) {
     console.log("SOCKET.IO: ", "User connected.");
 
     socket.on("message", function (message) {
+        if(message.text.length > 256){
+        message.text = message.text.slice(0,256);
+        }
+        
         io.to(clientInfo[socket.id].room).emit("message", {
             time: moment().utc().valueOf("X"), //outgoing message does have timestamp
             text: message.text,

@@ -37,8 +37,6 @@ socket.on("connect", function () {
 
 });
 
-
-
 //handling recieved messages from server
 socket.on("message", function (message) {
     console.log(message);
@@ -61,6 +59,9 @@ $messageform.on("submit", function (event) {
     event.preventDefault();
     var messageinput = $("input[name=\"message\"]");
     var message = messageinput.val();
+    if(message.length > 256){
+    message = message.slice(0,256);
+    }
     if (message.trim() != "") {
         console.log(message.trim());
         socket.emit("message", {
